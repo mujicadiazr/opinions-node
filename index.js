@@ -84,4 +84,4 @@ io.sockets.on('connection', function (socket) {
     });
 });
 
-server.listen(8008);
+server.listen(80);
