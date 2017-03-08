@@ -1,7 +1,14 @@
-var io = require('socket.io').listen(8008);
+var app = require('express')();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+
 
 var querystring = require('querystring');
 var http = require('http');
+
+app.get('/', function (req, res) {
+    res.send('Opinions-node server running :)');
+});
 
 io.sockets.on('connection', function (socket) {
     socket.on('vote_up',function (info) {
@@ -77,4 +84,4 @@ io.sockets.on('connection', function (socket) {
     });
 });
 
-
+server.listen(8008);
