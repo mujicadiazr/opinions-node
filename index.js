@@ -2,6 +2,7 @@ var app = require('express')();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
+app.set('port', (process.env.PORT || 5000));
 
 var querystring = require('querystring');
 var http = require('http');
@@ -84,4 +85,6 @@ io.sockets.on('connection', function (socket) {
     });
 });
 
-server.listen(80);
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
