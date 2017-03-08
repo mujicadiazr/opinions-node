@@ -1,10 +1,5 @@
 var app = require('express')();
 var server = require('http').createServer(app);
-
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
-
 var io = require('socket.io')(server);
 var querystring = require('querystring');
 
@@ -101,7 +96,9 @@ io.sockets.on('connection', function (socket) {
 
 //Listening
 
-
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
 
 // server.listen(process.env.PORT || 5000, function () {
 //     console.log('HTTP Server listening on port 5000');
