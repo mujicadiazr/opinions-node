@@ -1,11 +1,21 @@
 var app = require('express')();
 var server = require('http').createServer(app);
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
+
 var io = require('socket.io')(server);
+var querystring = require('querystring');
 
 app.set('port', (process.env.PORT || 5000));
 
-var querystring = require('querystring');
-var http = require('http');
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 
 app.get('/', function (req, res) {
     res.send('Opinions-node server running :)');
@@ -91,9 +101,7 @@ io.sockets.on('connection', function (socket) {
 
 //Listening
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
+
 
 // server.listen(process.env.PORT || 5000, function () {
 //     console.log('HTTP Server listening on port 5000');
